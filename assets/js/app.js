@@ -22,11 +22,8 @@ function getMLB() {
                 let homeTeamScore = response.games[i].score.homeScoreTotal;
                 let awayTeamScore = response.games[i].score.awayScoreTotal;
 
+                gameStatus(status,homeTeam,awayTeam,homeTeamScore,awayTeamScore);
 
-                $(".scores").append("<dl class='w-50 w-25-l ph3 mb2'>" +
-                 "<dt class='f7 fw8 inning'>"+ status + "</dt>" + 
-                 "<dd class='ml0 f5 home-team'>" + homeTeam + " " + homeTeamScore + "</dd>" + 
-                 "<dd class='ml0 f5 away-team'>" + awayTeam + " " + awayTeamScore +  "</dd>" + "</dl>");
             }
             
         },
@@ -37,3 +34,17 @@ function getMLB() {
 }
 
 
+function gameStatus(status,homeTeam,awayTeam,homeTeamScore,awayTeamScore) {
+    if (homeTeamScore && awayTeamScore != null) {
+    $(".scores").append("<dl class='w-50 w-25-l ph3 mb2'>" +
+    "<dt class='f7 fw8 inning'>"+ status + "</dt>" + 
+    "<dd class='ml0 f5 home-team'>" + homeTeam + " " + homeTeamScore + "</dd>" + 
+    "<dd class='ml0 f5 away-team'>" + awayTeam + " " + awayTeamScore +  "</dd>" + "</dl>");
+}
+else  {
+    $(".scores").append("<dl class='w-50 w-25-l ph3 mb2'>" +
+"<dt class='f7 fw8 inning'>"+ status + "</dt>" + 
+"<dd class='ml0 f5 home-team'>" + homeTeam + " " + "0" + "</dd>" + 
+"<dd class='ml0 f5 away-team'>" + awayTeam + " " + "0" +  "</dd>" + "</dl>");
+}
+};
