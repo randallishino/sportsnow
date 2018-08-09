@@ -43,8 +43,19 @@ main {
     font-size: 20px;
 }
 
-.loser {
+#loser {
     color: grey;
+}
+#winner {
+    color: black;
+}
+
+.final {
+    color:red;
+}
+
+.unplayed {
+    color: blue;
 }
 
 .border-box {
