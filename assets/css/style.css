@@ -47,6 +47,19 @@ main {
     width: 250px;
 }
 
+.jumbo {
+    height: 700px;
+}
+
+.widget {
+    position: absolute;
+    bottom:0;
+    right:0;
+    top: 792px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
 .final {
     color:red;
 }
@@ -313,6 +326,17 @@ main {
     .dib-ns {
         display: inline-block;
     }
+
+    /* .widget {
+        margin-right: 100px;
+        height: 50px;
+        margin-top: 450px;
+    } */
+
+    /* .f6 {
+        margin-right: 200px;
+        display: flex;
+    } */
 }
 
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -323,6 +347,15 @@ main {
     .mt5-m {
         margin-top: 4rem;
     }
+
+    .f6 {
+        display: inline-block;
+    }
+
+    /* .widget {
+        margin-right: 550px;
+        margin-top: 320px;
+    } */
 }
 
 @media screen and (min-width: 60em) {
@@ -350,4 +383,19 @@ main {
     .f1-l {
         font-size: 3rem;
     }
+/* 
+    .dtc {
+        display: flex;
+        list-style:none;
+        flex-wrap: nowrap;
+        align-content: stretch;        
+        padding:5px;
+        font-weight:bold;
+        margin-top: 20px;
+        margin-left: 125px;
+    } */
+
+    /* .widget {
+        width: 50px;
+    } */
 }
