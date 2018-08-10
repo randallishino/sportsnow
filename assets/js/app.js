@@ -13,7 +13,7 @@ function getMLB() {
         btoa("fc43a60e-d321-498f-9331-9ce7c8" + ":" + "MYSPORTSFEEDS")
     },
 
-    success: function(response) {
+    success: function (response) {
       for (let i = 0; i < response.games.length; i++) {
         const awayTeam = response.games[i].schedule.awayTeam.abbreviation;
         const homeTeam = response.games[i].schedule.homeTeam.abbreviation;
@@ -21,9 +21,9 @@ function getMLB() {
         const homeTeamScore = response.games[i].score.homeScoreTotal;
         const awayTeamScore = response.games[i].score.awayScoreTotal;
         let currentInning = response.games[i].score.currentInning;
+        console.log(response.games[i]);
         const currentInningHalf = response.games[i].score.currentInningHalf;
         const parsedTime = moment(response.games[i].schedule.startTime);
-        console.log(response.games[i]);
         const scheduledTime = moment(parsedTime).format(
           "dddd, MMMM Do YYYY, h:mm:ss a"
         );
@@ -32,56 +32,60 @@ function getMLB() {
           status = scheduledTime;
         };
 
-        if(currentInning > 3) {
+        if (currentInning > 3) {
           currentInning = currentInning + "th";
         }
 
-        scoreStatus(status,currentInning,currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+        if (currentInning === 2) {
+          currentInning = currentInning + "nd";
+        }
+
+        scoreStatus(status, currentInning, currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         inningStatus(status, scheduledTime);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
 }
 
-function scoreStatus(status,currentInning,currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore) {
+function scoreStatus(status, currentInning, currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore) {
   if (homeTeamScore && awayTeamScore != null) {
     $(".scores").append(
       "<dl class='w-50 w-25-l ph3 mb2'>" +
-        "<dt class='f7 fw8 inning'>" +
-        status + " " + currentInningHalf + " " + currentInning + 
-        "</dt>" +
-        "<dd class='ml0 f5 home-team'>" +
-        homeTeam +
-        " " +
-        homeTeamScore +
-        "</dd>" +
-        "<dd class='ml0 f5 away-team'>" +
-        awayTeam +
-        " " +
-        awayTeamScore +
-        "</dd>" +
-        "</dl>"
+      "<dt class='f7 fw8 inning'>" +
+      status + " " + currentInningHalf + " " + currentInning +
+      "</dt>" +
+      "<dd class='ml0 f5 home-team'>" +
+      homeTeam +
+      " " +
+      homeTeamScore +
+      "</dd>" +
+      "<dd class='ml0 f5 away-team'>" +
+      awayTeam +
+      " " +
+      awayTeamScore +
+      "</dd>" +
+      "</dl>"
     );
   } else {
     $(".scores").append(
       "<dl class='w-50 w-25-l ph3 mb2'>" +
-        "<dt class='f7 fw8 inning'>" +
-        status +
-        "</dt>" +
-        "<dd class='ml0 f5 home-team'>" +
-        homeTeam +
-        " " +
-        "0" +
-        "</dd>" +
-        "<dd class='ml0 f5 away-team'>" +
-        awayTeam +
-        " " +
-        "0" +
-        "</dd>" +
-        "</dl>"
+      "<dt class='f7 fw8 inning'>" +
+      status +
+      "</dt>" +
+      "<dd class='ml0 f5 home-team'>" +
+      homeTeam +
+      " " +
+      "0" +
+      "</dd>" +
+      "<dd class='ml0 f5 away-team'>" +
+      awayTeam +
+      " " +
+      "0" +
+      "</dd>" +
+      "</dl>"
     );
   }
 }
