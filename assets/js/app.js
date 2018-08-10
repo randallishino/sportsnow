@@ -2,7 +2,7 @@ window.onload = getMLB;
 
 function getMLB() {
   const url =
-    "https://api.mysportsfeeds.com/v2.0/pull/mlb/current/date/20180808/games.json";
+    "https://api.mysportsfeeds.com/v2.0/pull/mlb/current/date/20180809/games.json";
   $.ajax({
     url: url,
     method: "GET",
@@ -20,7 +20,10 @@ function getMLB() {
         let status = response.games[i].schedule.playedStatus;
         const homeTeamScore = response.games[i].score.homeScoreTotal;
         const awayTeamScore = response.games[i].score.awayScoreTotal;
+        let currentInning = response.games[i].score.currentInning;
+        const currentInningHalf = response.games[i].score.currentInningHalf;
         const parsedTime = moment(response.games[i].schedule.startTime);
+        console.log(response.games[i]);
         const scheduledTime = moment(parsedTime).format(
           "dddd, MMMM Do YYYY, h:mm:ss a"
         );
@@ -29,7 +32,11 @@ function getMLB() {
           status = scheduledTime;
         };
 
-        scoreStatus(status, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+        if(currentInning > 3) {
+          currentInning = currentInning + "th";
+        }
+
+        scoreStatus(status,currentInning,currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         inningStatus(status, scheduledTime);
       }
     },
@@ -39,12 +46,12 @@ function getMLB() {
   });
 }
 
-function scoreStatus(status, homeTeam, awayTeam, homeTeamScore, awayTeamScore) {
+function scoreStatus(status,currentInning,currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore) {
   if (homeTeamScore && awayTeamScore != null) {
     $(".scores").append(
       "<dl class='w-50 w-25-l ph3 mb2'>" +
         "<dt class='f7 fw8 inning'>" +
-        status +
+        status + " " + currentInningHalf + " " + currentInning + 
         "</dt>" +
         "<dd class='ml0 f5 home-team'>" +
         homeTeam +
@@ -86,6 +93,9 @@ function inningStatus(status, scheduledTime) {
       .addClass("final");
     $(".final").html("FINAL");
   } else {
-    $(".inning").css("color", "blue");
+    $(".inning").css({
+      "color": "blue",
+      "font-style": "italic"
+    });
   }
-}
+};
