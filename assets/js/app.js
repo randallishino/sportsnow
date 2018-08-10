@@ -21,7 +21,6 @@ function getMLB() {
         const homeTeamScore = response.games[i].score.homeScoreTotal;
         const awayTeamScore = response.games[i].score.awayScoreTotal;
         let currentInning = response.games[i].score.currentInning;
-        console.log(response.games[i]);
         const currentInningHalf = response.games[i].score.currentInningHalf;
         const parsedTime = moment(response.games[i].schedule.startTime);
         const scheduledTime = moment(parsedTime).format(
