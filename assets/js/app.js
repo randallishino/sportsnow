@@ -2,7 +2,7 @@ window.onload = getMLB;
 
 function getMLB() {
   const url =
-    "https://api.mysportsfeeds.com/v2.0/pull/mlb/current/date/20180809/games.json";
+    "https://api.mysportsfeeds.com/v2.0/pull/mlb/current/date/201808011/games.json";
   $.ajax({
     url: url,
     method: "GET",
@@ -18,9 +18,9 @@ function getMLB() {
         const awayTeam = response.games[i].schedule.awayTeam.abbreviation;
         const homeTeam = response.games[i].schedule.homeTeam.abbreviation;
         let status = response.games[i].schedule.playedStatus;
-        const homeTeamScore = response.games[i].score.homeScoreTotal;
-        const awayTeamScore = response.games[i].score.awayScoreTotal;
-        let currentInning = response.games[i].score.currentInning;
+        var homeTeamScore = response.games[i].score.homeScoreTotal;
+        var awayTeamScore = response.games[i].score.awayScoreTotal;
+        var currentInning = response.games[i].score.currentInning;
         const currentInningHalf = response.games[i].score.currentInningHalf;
         const parsedTime = moment(response.games[i].schedule.startTime);
         const scheduledTime = moment(parsedTime).format(
@@ -31,13 +31,13 @@ function getMLB() {
           status = scheduledTime;
         };
 
-        if (currentInning > 3) {
-          currentInning = currentInning + "th";
-        }
+        // if (currentInning > 3) {
+        //   currentInning = currentInning + "th";
+        // }
 
-        if (currentInning === 2) {
-          currentInning = currentInning + "nd";
-        }
+        // if (currentInning === 2) {
+        //   currentInning = currentInning + "nd";
+        // }
 
         scoreStatus(status, currentInning, currentInningHalf, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         inningStatus(status, scheduledTime);
